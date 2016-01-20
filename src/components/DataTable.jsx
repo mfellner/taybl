@@ -1,30 +1,22 @@
 import React, { Component, PropTypes } from 'react'
 import { Table } from 'react-bootstrap'
 
-export default class MyTable extends Component {
+export default class DataTable extends Component {
   static propTypes = {
+    filters: PropTypes.object.isRequired,
     heads: PropTypes.array.isRequired,
-    rows: PropTypes.array.isRequired
+    rows: PropTypes.array.isRequired,
+    updateFilter: PropTypes.func.isRequired
   };
 
-  constructor(props) {
-    super(props)
-    this.state = {filters: {}}
-  }
-
-  onFilterUpdate(evt) {
-    const {id, value} = evt.target
-    this.setState(state => {
-      const {filters} = state
-      filters[id] = value
-      return {filters: filters}
-    })
+  onUpdateFilter(e) {
+    e.preventDefault()
+    const {id, value} = e.target
+    this.props.updateFilter(id, value)
   }
 
   render() {
-    const {heads, rows} = this.props
-    const {filters} = this.state
-
+    const {filters, heads, rows} = this.props
     return (
       <Table responsive>
         <thead>
@@ -34,17 +26,16 @@ export default class MyTable extends Component {
               <div className="input-group">
                 <span className="input-group-addon">{k}</span>
                 <input type="text" className="form-control"
-                       id={k}
-                       onChange={this.onFilterUpdate.bind(this)}
-                       value={filters[k]}
-                       placeholder={k}/>
+                       onChange={this.onUpdateFilter.bind(this)}
+                       id={k} value={filters[k]}
+                       placeholder="filter…"/>
               </div>
             </td>
           ))}
         </tr>
         </thead>
         <tbody>
-        {rows.filter(row => Object.keys(row).map(k => {
+        {rows.filter(row => Object.keys(filters).map(k => {
             const filter = filters[k] || ''
             const regexp = new RegExp(filter, 'i')
             return row[k].match(regexp) !== null

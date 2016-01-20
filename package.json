@@ -31,6 +31,8 @@
     "react": "0.14.x",
     "react-bootstrap": "0.28.x",
     "react-dom": "0.14.x",
+    "react-redux": "4.0.x",
+    "redux": "3.0.x",
     "webpack": "1.12.x",
     "webpack-dev-server": "1.14.x"
   }
