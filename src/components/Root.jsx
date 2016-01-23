@@ -4,8 +4,9 @@ import { Row, Col } from 'react-bootstrap'
 
 import DataTable from './DataTable.jsx'
 import Sidebar from './Sidebar.jsx'
+import { changeFile } from './../actions/file'
 import { updateFilter } from './../actions/data'
-import { toggleSidebar } from './../actions/sidebar'
+import { toggleSidebar, selectNav } from './../actions/sidebar'
 
 function mapStateToProps(state) {
   return {
@@ -21,17 +22,17 @@ class Root extends Component {
   };
 
   render() {
-    const {updateFilter, toggleSidebar} = this.props
+    const {updateFilter, toggleSidebar, selectNav, changeFile} = this.props
     const table = {...this.props.data, updateFilter}
-    const sidebar = {...this.props.sidebar, toggleSidebar}
+    const sidebar = {...this.props.sidebar, toggleSidebar, selectNav, changeFile}
 
     return (
       <div className="container">
         <Row style={{paddingTop: '10px'}}>
-          <Col lg={2}>
+          <Col lg={3}>
             <Sidebar {...sidebar}/>
           </Col>
-          <Col lg={10}>
+          <Col lg={9}>
             <DataTable {...table}/>
           </Col>
         </Row>
@@ -40,4 +41,4 @@ class Root extends Component {
   }
 }
 
-export default connect(mapStateToProps, {updateFilter, toggleSidebar})(Root)
+export default connect(mapStateToProps, {updateFilter, toggleSidebar, selectNav, changeFile})(Root)

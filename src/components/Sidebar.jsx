@@ -1,12 +1,21 @@
+import ReactDOM from 'react-dom'
 import React, { Component, PropTypes } from 'react'
-import { Row, Col, Panel, Button } from 'react-bootstrap'
+import { Row, Col, Panel, Button, Nav, NavItem } from 'react-bootstrap'
 
-import Auth from './Auth.jsx'
+import FileLoader from './FileLoader.jsx'
+import FileExporter from './FileExporter.jsx'
 
 export default class Sidebar extends Component {
   static propTypes = {
     expanded: PropTypes.bool.isRequired,
-    toggleSidebar: PropTypes.func.isRequired
+    toggleSidebar: PropTypes.func.isRequired,
+    activeNav: PropTypes.string.isRequired,
+    selectNav: PropTypes.func.isRequired,
+    changeFile: PropTypes.func.isRequired
+  };
+
+  static defaultProps = {
+    activeNav: 'open'
   };
 
   onToggleSidebar() {
@@ -15,6 +24,7 @@ export default class Sidebar extends Component {
   }
 
   render() {
+    const {expanded, activeNav, selectNav, changeFile} = this.props
     const header = (
       <Row>
         <Col xs={8} sm={8} lg={7}>
@@ -28,8 +38,22 @@ export default class Sidebar extends Component {
       </Row>
     )
     return (
-      <Panel collapsible header={header} expanded={this.props.expanded}>
-        <Auth/>
+      <Panel className="sidebar" collapsible header={header} expanded={expanded}>
+        <Nav bsStyle="tabs" activeKey={activeNav} onSelect={selectNav}>
+          <NavItem eventKey="open">
+            <span className="glyphicon glyphicon-open-file"/>
+          </NavItem>
+          <NavItem eventKey="save">
+            <span className="glyphicon glyphicon-save-file"/>
+          </NavItem>
+        </Nav>
+        <Row style={{paddingTop: '10px'}}>
+          <Col lg={12}>
+            {(() => (
+              activeNav === 'open' ? (<FileLoader changeFile={changeFile}/>) : (<FileExporter/>)
+            ))()}
+          </Col>
+        </Row>
       </Panel>
     )
   }

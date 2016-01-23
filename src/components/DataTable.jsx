@@ -4,9 +4,15 @@ import { Table } from 'react-bootstrap'
 export default class DataTable extends Component {
   static propTypes = {
     filters: PropTypes.object.isRequired,
-    heads: PropTypes.array.isRequired,
+    head: PropTypes.array.isRequired,
     rows: PropTypes.array.isRequired,
     updateFilter: PropTypes.func.isRequired
+  };
+
+  static defaultProps = {
+    filters: {},
+    head: [],
+    rows: []
   };
 
   onUpdateFilter(e) {
@@ -16,12 +22,12 @@ export default class DataTable extends Component {
   }
 
   render() {
-    const {filters, heads, rows} = this.props
+    const {filters, head, rows} = this.props
     return (
       <Table responsive>
         <thead>
         <tr>
-          {heads.map((k, i) => (
+          {head.map((k, i) => (
             <td key={i}>
               <div className="input-group">
                 <span className="input-group-addon">{k}</span>
