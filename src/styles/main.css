@@ -16,3 +16,7 @@
   position: absolute;
   z-index: -1;
 }
+
+.data-table {
+  font-size: 12px;
+}

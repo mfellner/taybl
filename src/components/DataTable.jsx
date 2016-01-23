@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import { Table } from 'react-bootstrap'
+import { Table, Input, Tooltip, OverlayTrigger } from 'react-bootstrap'
 
 export default class DataTable extends Component {
   static propTypes = {
@@ -21,22 +21,27 @@ export default class DataTable extends Component {
     this.props.updateFilter(id, value)
   }
 
+  tooltip(text) {
+    return (
+      <Tooltip id={text}>{text}</Tooltip>
+    )
+  }
+
   render() {
     const {filters, head, rows} = this.props
     return (
-      <Table responsive>
+      <Table className="data-table" responsive hover>
         <thead>
         <tr>
           {head.map((k, i) => (
-            <td key={i}>
-              <div className="input-group">
-                <span className="input-group-addon">{k}</span>
-                <input type="text" className="form-control"
+            <th key={i}>
+              <OverlayTrigger placement="top" overlay={this.tooltip(k)}>
+                <Input type="text" bsSize="small"
                        onChange={this.onUpdateFilter.bind(this)}
                        id={k} value={filters[k]}
-                       placeholder="filter…"/>
-              </div>
-            </td>
+                       placeholder={k}/>
+              </OverlayTrigger>
+            </th>
           ))}
         </tr>
         </thead>
