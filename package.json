@@ -26,6 +26,7 @@
     "babel-preset-node5": "10.3.x",
     "babel-preset-react": "6.3.x",
     "babel-preset-stage-1": "6.3.x",
+    "css-loader": "0.23.x",
     "eslint": "1.10.x",
     "html-webpack-plugin": "2.7.x",
     "react": "0.14.x",
@@ -33,6 +34,7 @@
     "react-dom": "0.14.x",
     "react-redux": "4.0.x",
     "redux": "3.0.x",
+    "style-loader": "0.13.x",
     "webpack": "1.12.x",
     "webpack-dev-server": "1.14.x"
   }

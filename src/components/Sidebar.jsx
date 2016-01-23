@@ -9,6 +9,11 @@ export default class Sidebar extends Component {
     toggleSidebar: PropTypes.func.isRequired
   };
 
+  onToggleSidebar() {
+    this.props.toggleSidebar()
+    ReactDOM.findDOMNode(this.refs.toggleBtn).blur()
+  }
+
   render() {
     const header = (
       <Row>
@@ -16,7 +21,7 @@ export default class Sidebar extends Component {
           gbase
         </Col>
         <Col xs={2} sm={1} lg={5} className="pull-right text-right">
-          <Button bsSize="xsmall" style={{margin:0}} onClick={this.props.toggleSidebar}>
+          <Button bsSize="xsmall" ref="toggleBtn" onClick={this.onToggleSidebar.bind(this)}>
             <span className="glyphicon glyphicon-menu-hamburger"/>
           </Button>
         </Col>
