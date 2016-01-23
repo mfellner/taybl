@@ -1,5 +1,5 @@
 import { UPDATE_FILTER } from '../actions/data'
-import { LOAD_FILE } from '../actions/file'
+import { LOAD_FILE, CLEAR_FILE } from '../actions/file'
 
 function filters(state = {}, action) {
   switch (action.type) {
@@ -24,7 +24,7 @@ function parseFile(file) {
   return transform(JSON.parse(file.data))
 }
 
-export default function data(state = {filters: {}, heads: [], rows: []}, action) {
+export default function data(state = {filters: {}, head: [], rows: []}, action) {
   switch (action.type) {
     case UPDATE_FILTER:
       return Object.assign({}, state, {
@@ -35,6 +35,11 @@ export default function data(state = {filters: {}, heads: [], rows: []}, action)
       return Object.assign({}, state, {
         head,
         rows
+      })
+    case CLEAR_FILE:
+      return Object.assign({}, state, {
+        head: [],
+        rows: []
       })
     default:
       return state

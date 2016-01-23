@@ -1,4 +1,5 @@
 export const CHANGE_FILE = Symbol('change file')
+export const CLEAR_FILE = Symbol('clear file')
 export const LOAD_FILE = Symbol('load file')
 export const LOAD_ERROR = Symbol('load error')
 
@@ -17,6 +18,12 @@ function loadError(e) {
   return {
     type: LOAD_ERROR,
     e
+  }
+}
+
+export function clearFile() {
+  return {
+    type: CLEAR_FILE
   }
 }
 

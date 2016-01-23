@@ -34,6 +34,7 @@
     "react-dom": "0.14.x",
     "react-redux": "4.0.x",
     "redux": "3.0.x",
+    "redux-storage": "1.4.x",
     "redux-thunk": "1.0.x",
     "style-loader": "0.13.x",
     "webpack": "1.12.x",

@@ -7,11 +7,13 @@ import FileExporter from './FileExporter.jsx'
 
 export default class Sidebar extends Component {
   static propTypes = {
+    file: PropTypes.object.isRequired,
     expanded: PropTypes.bool.isRequired,
     toggleSidebar: PropTypes.func.isRequired,
     activeNav: PropTypes.string.isRequired,
     selectNav: PropTypes.func.isRequired,
-    changeFile: PropTypes.func.isRequired
+    changeFile: PropTypes.func.isRequired,
+    clearFile: PropTypes.func.isRequired
   };
 
   static defaultProps = {
@@ -24,7 +26,8 @@ export default class Sidebar extends Component {
   }
 
   render() {
-    const {expanded, activeNav, selectNav, changeFile} = this.props
+    const {file, expanded, activeNav, selectNav, changeFile, clearFile} = this.props
+    const fileLoader = {currentFile: file, changeFile, clearFile}
     const header = (
       <Row>
         <Col xs={8} sm={8} lg={7}>
@@ -50,7 +53,9 @@ export default class Sidebar extends Component {
         <Row style={{paddingTop: '10px'}}>
           <Col lg={12}>
             {(() => (
-              activeNav === 'open' ? (<FileLoader changeFile={changeFile}/>) : (<FileExporter/>)
+              activeNav === 'open'
+                ? (<FileLoader {...fileLoader}/>)
+                : (<FileExporter/>)
             ))()}
           </Col>
         </Row>
