@@ -1,7 +1,11 @@
 /**
- * Remove focus outline from buttons.
+ * Remove focus outline from elements.
  */
 .sidebar button:focus {
+  outline: 0 !important;
+}
+
+.sidebar a:focus {
   outline: 0 !important;
 }
 

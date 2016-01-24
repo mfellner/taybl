@@ -7,13 +7,18 @@ import FileExporter from './FileExporter.jsx'
 
 export default class Sidebar extends Component {
   static propTypes = {
-    file: PropTypes.object.isRequired,
     expanded: PropTypes.bool.isRequired,
     toggleSidebar: PropTypes.func.isRequired,
+    dataIsLoaded: PropTypes.bool.isRequired,
     activeNav: PropTypes.string.isRequired,
     selectNav: PropTypes.func.isRequired,
+    file: PropTypes.object.isRequired,
     changeFile: PropTypes.func.isRequired,
-    clearFile: PropTypes.func.isRequired
+    clearFile: PropTypes.func.isRequired,
+    export: PropTypes.object.isRequired,
+    changeExport: PropTypes.func.isRequired,
+    clearExport: PropTypes.func.isRequired,
+    startExport: PropTypes.func.isRequired
   };
 
   static defaultProps = {
@@ -26,8 +31,12 @@ export default class Sidebar extends Component {
   }
 
   render() {
-    const {file, expanded, activeNav, selectNav, changeFile, clearFile} = this.props
+    const {expanded, activeNav, selectNav, dataIsLoaded} = this.props
+    const {file, changeFile, clearFile} = this.props
+    const {changeExport, clearExport, startExport} = this.props
+
     const fileLoader = {currentFile: file, changeFile, clearFile}
+    const fileExporter = {...this.props.export, changeExport, clearExport, startExport}
     return (
       <div className="sidebar panel panel-default">
         <div className="panel-heading">
@@ -50,7 +59,7 @@ export default class Sidebar extends Component {
                 <NavItem eventKey="open">
                   <span className="glyphicon glyphicon-open-file"/>
                 </NavItem>
-                <NavItem eventKey="save">
+                <NavItem eventKey="save" disabled={!dataIsLoaded}>
                   <span className="glyphicon glyphicon-save-file"/>
                 </NavItem>
               </Nav>
@@ -59,7 +68,7 @@ export default class Sidebar extends Component {
                   {(() => (
                     activeNav === 'open'
                       ? (<FileLoader {...fileLoader}/>)
-                      : (<FileExporter/>)
+                      : (<FileExporter {...fileExporter}/>)
                   ))()}
                 </Col>
               </Row>

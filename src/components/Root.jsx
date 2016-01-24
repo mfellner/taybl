@@ -5,6 +5,7 @@ import { Row, Col } from 'react-bootstrap'
 import DataTable from './DataTable.jsx'
 import Sidebar from './Sidebar.jsx'
 import { changeFile, clearFile } from './../actions/file'
+import { changeExport, clearExport, startExport } from './../actions/export'
 import { updateFilter } from './../actions/data'
 import { toggleSidebar, selectNav } from './../actions/sidebar'
 
@@ -12,6 +13,7 @@ function mapStateToProps(state) {
   return {
     data: state.data,
     file: state.file,
+    export: state.export,
     sidebar: state.sidebar
   }
 }
@@ -24,15 +26,25 @@ class Root extends Component {
   };
 
   render() {
-    const {
-      file, updateFilter, toggleSidebar, selectNav, changeFile, clearFile
-      } = this.props
+    const {updateFilter} = this.props
+    const {toggleSidebar, selectNav} = this.props
+    const {changeFile, clearFile} = this.props
+    const {changeExport, clearExport, startExport} = this.props
+    const dataIsLoaded = this.props.data.rows.length > 0
+
     const table = {
       ...this.props.data, updateFilter
     }
+
     const sidebar = {
-      ...this.props.sidebar, file, toggleSidebar, selectNav, changeFile, clearFile
+      ...this.props.sidebar,
+      toggleSidebar, selectNav, dataIsLoaded,
+      file: this.props.file,
+      changeFile, clearFile,
+      export: this.props.export,
+      changeExport, clearExport, startExport
     }
+
     return (
       <div className="container">
         <Row style={{paddingTop: '10px'}}>
@@ -49,5 +61,7 @@ class Root extends Component {
 }
 
 export default connect(mapStateToProps, {
-  updateFilter, toggleSidebar, selectNav, changeFile, clearFile
+  updateFilter, toggleSidebar, selectNav,
+  changeFile, clearFile,
+  changeExport, clearExport, startExport
 })(Root)

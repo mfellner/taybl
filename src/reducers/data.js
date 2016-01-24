@@ -1,3 +1,5 @@
+import { parseFile } from '../import/file'
+
 import { UPDATE_FILTER } from '../actions/data'
 import { LOAD_FILE, CLEAR_FILE } from '../actions/file'
 
@@ -8,20 +10,6 @@ function filters(state = {}, action) {
         [action.key]: action.value
       })
   }
-}
-
-function parseFile(file) {
-  function transform(obj) {
-    const objs = Object.keys(obj).map(k => ({
-      id: k, ...obj[k]
-    }))
-    const head = Object.keys(objs[0])
-    const rows = objs
-    return {head, rows}
-    //return [head].concat(rows)
-  }
-
-  return transform(JSON.parse(file.data))
 }
 
 export default function data(state = {filters: {}, head: [], rows: []}, action) {

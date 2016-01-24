@@ -17,5 +17,6 @@ export function configure(initialState) {
 }
 
 export function getInitialState() {
-  return JSON.parse(localStorage.getItem(storageKey))
+  const state = localStorage.getItem(storageKey)
+  if (state) return JSON.parse(state)
 }
