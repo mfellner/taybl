@@ -111,7 +111,7 @@ export function decode(s) {
  */
 function exportUrl(head, rows) {
   const s = encode(head, rows)
-  return `${window.location.href.slice(0, -1)}?b64=${s}`
+  return `${window.location.href}?b64=${s}`
 }
 
 /**
