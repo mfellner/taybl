@@ -8,8 +8,11 @@
   },
   "scripts": {
     "test": "eslint src/",
-    "build": "webpack",
-    "server": "webpack-dev-server --inline --no-info --content-base dist/"
+    "clean": "rm -rf dist/",
+    "build": "webpack -d",
+    "dist": "npm run clean && webpack -p",
+    "server": "webpack-dev-server --inline --no-info --content-base dist/",
+    "deploy": "gh-pages-deploy"
   },
   "repository": {
     "type": "git",
@@ -28,6 +31,7 @@
     "babel-preset-stage-1": "6.3.x",
     "css-loader": "0.23.x",
     "eslint": "1.10.x",
+    "gh-pages-deploy": "0.4.x",
     "html-webpack-plugin": "2.7.x",
     "pako": "0.2.x",
     "papaparse": "4.1.x",
@@ -41,5 +45,11 @@
     "style-loader": "0.13.x",
     "webpack": "1.12.x",
     "webpack-dev-server": "1.14.x"
+  },
+  "gh-pages-deploy": {
+    "staticpath": "dist",
+    "prep": [
+      "dist"
+    ]
   }
 }

@@ -24,6 +24,5 @@ module.exports = {
         preserveLineBreaks: true
       }
     })
-  ],
-  devtool: 'source-map'
+  ]
 }
