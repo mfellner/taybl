@@ -19,6 +19,7 @@ export default function data(state = {filters: {}, head: [], rows: []}, action) 
         filters: filters(state.filters, action)
       })
     case LOAD_FILE:
+      // TODO: parseFile should happen in an action to handle errors.
       const {head, rows} = parseFile(action.file)
       return Object.assign({}, state, {
         head,

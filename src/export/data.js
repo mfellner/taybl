@@ -1,4 +1,5 @@
 import pako from 'pako'
+import Papa from 'papaparse'
 
 const separatorA = '\u0000'
 const separatorB = '\u0001'
@@ -20,7 +21,7 @@ function flattenData(head, rows) {
  * @param {Array.<Array<string|null>>} xs Flattened data array
  * @returns {{head: Array<string>, rows: Array<object>}}
  */
-function expandToData(xs) {
+export function expandToData(xs) {
   const head = xs.shift()
   const rows = xs.map(row => head.map((key, i) => ({
     [key]: row[i]
@@ -114,6 +115,14 @@ function exportUrl(head, rows) {
 }
 
 /**
+ * @param rows {Array<object>} rows Table rows
+ * @returns {string}
+ */
+export function exportCSV(rows) {
+  return Papa.unparse(rows, {quotes: true})
+}
+
+/**
  * @param {string} format Export format
  * @param {Array<string>} head Column names
  * @param {Array<object>} rows Table rows
@@ -127,7 +136,7 @@ export function exportData(format, head, rows) {
       console.error('json not yet implemented')
       break
     case 'csv':
-      console.error('csv not yet implemented')
+      return exportCSV(rows)
       break
     default:
       console.error('unsupported data format')

@@ -31,16 +31,35 @@ export default class FileExporter extends Component {
                    checked={this.props.format === format} readOnly/>)
   }
 
+  renderClearButton(disabled) {
+    return (<Button ref="clearUrlBtn" disabled={disabled}
+                    onClick={this.onClearExport.bind(this)}>
+      <span className="glyphicon glyphicon-remove"/>
+    </Button>)
+  }
+
+  renderURLText(url) {
+    return (<Input type="text" standalone readOnly disabled={!url}
+                   value={url} buttonBefore={this.renderClearButton(!url)}/>)
+  }
+
+  renderDownloadButton(format, data) {
+    const mimetype = format === 'csv'
+      ? 'text/csv'
+      : 'application/json'
+    const href = `data:${mimetype};charset=utf-8,${encodeURIComponent(data)}`
+    return (<div>
+      {this.renderClearButton(!data)}
+      <span className="hidden-xs" style={{padding: '0 5px'}}/>
+      <a className="btn btn-default" download="data"
+         href={href} disabled={!data}>{`download ${format}`}</a>
+    </div>)
+  }
+
   render() {
     const {format, result} = this.props
     const hSpacer = (<span className="hidden-xs" style={{padding: '0 5px'}}/>)
     const vSpacer = (<div className="hidden-sm hidden-md" style={{padding: '5px 0'}}/>)
-
-    const clearUrlBtn =
-      (<Button ref="clearUrlBtn" disabled={!result}
-               onClick={this.onClearExport.bind(this)}>
-        <span className="glyphicon glyphicon-remove"/>
-      </Button>)
 
     return (
       <Row>
@@ -67,10 +86,8 @@ export default class FileExporter extends Component {
             <Col xs={12} sm={9} lg={12}>
               {(() => (
                 format === 'url'
-                  ? (<Input type="text" standalone readOnly
-                            disabled={!result} value={result}
-                            buttonBefore={clearUrlBtn}/>)
-                  : ('not yet implemented')
+                  ? this.renderURLText(result)
+                  : this.renderDownloadButton(format, result)
               ))()}
             </Col>
           </Row>

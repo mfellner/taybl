@@ -1,3 +1,6 @@
+import Papa from 'papaparse'
+import { expandToData } from '../export/data'
+
 /**
  * Parse JSON data.
  *
@@ -32,13 +35,18 @@ function parseJSON(data) {
 /**
  * Parse CSV data.
  *
- * @param {string} data
+ * @param {string} csv
  * @returns {{head: Array.<string>, rows: Array.<object>}}
  */
-function parseCSV(data) {
-  console.error('csv not yet implemented')
-  let head = [], rows = []
-  return {head, rows}
+function parseCSV(csv) {
+  const {data, errors} = Papa.parse(csv)
+
+  if (errors.length > 0) {
+    console.error(errors)
+    // TODO: when not called directly in the reducer, return null instead.
+    return {head: [], rows: []}
+  }
+  return expandToData(data)
 }
 
 /**
@@ -51,11 +59,12 @@ export function parseFile(file) {
   switch (file.type) {
     case 'application/json':
       return parseJSON(file.data)
-    case 'application/csv':
+    case 'text/csv':
       return parseCSV(file.data)
       break
     default:
       console.error('unsupported file type %s', file.type)
+      return {head: [], rows: []}
       break
   }
 }
