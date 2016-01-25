@@ -1,7 +1,7 @@
 {
-  "name": "gistbase",
+  "name": "taybl",
   "version": "1.0.0",
-  "description": "A Github Gist based data store",
+  "description": "A fancy way to share table data",
   "main": "dist/index.html",
   "engines": {
     "node": ">=5.0"
@@ -13,7 +13,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.bus.zalan.do:codebrewers/gistbase.git"
+    "url": "https://github.com/zalando/taybl.git"
   },
   "author": "Maximilian Fellner <maximilian.fellner@zalando.de>",
   "license": "MIT",

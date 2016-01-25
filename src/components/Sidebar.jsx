@@ -42,7 +42,7 @@ export default class Sidebar extends Component {
         <div className="panel-heading">
           <Row>
             <Col xs={8} sm={8} lg={7}>
-              <strong>gistbase</strong>
+              <strong>taybl</strong>
             </Col>
             <Col xs={2} sm={1} lg={5} className="pull-right text-right">
               <Button bsSize="xsmall" ref="toggleBtn" onClick={this.onToggleSidebar.bind(this)}>

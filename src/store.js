@@ -6,7 +6,7 @@ import { createStore, applyMiddleware } from 'redux'
 import rootReducer from './reducers'
 import { getDataFromUrl } from './import/url'
 
-const storageKey = 'gistbase'
+const storageKey = 'taybl'
 const engine = createStorageEngine(storageKey)
 
 const createStoreWithMiddleware = applyMiddleware(
