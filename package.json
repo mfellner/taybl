@@ -29,6 +29,7 @@
     "css-loader": "0.23.x",
     "eslint": "1.10.x",
     "html-webpack-plugin": "2.7.x",
+    "pako": "0.2.x",
     "react": "0.14.x",
     "react-bootstrap": "0.28.x",
     "react-dom": "0.14.x",

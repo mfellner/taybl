@@ -4,6 +4,7 @@ import { createMiddleware as createStorageMiddleware } from 'redux-storage'
 import { createStore, applyMiddleware } from 'redux'
 
 import rootReducer from './reducers'
+import { getDataFromUrl } from './import/url'
 
 const storageKey = 'gistbase'
 const engine = createStorageEngine(storageKey)
@@ -17,6 +18,8 @@ export function configure(initialState) {
 }
 
 export function getInitialState() {
-  const state = localStorage.getItem(storageKey)
-  if (state) return JSON.parse(state)
+  const json = localStorage.getItem(storageKey)
+  const state = JSON.parse(json) || undefined
+  const data = getDataFromUrl()
+  return data ? Object.assign({}, state, {data}) : state
 }
