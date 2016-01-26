@@ -49,7 +49,8 @@ export default class DataTable extends Component {
         {rows.filter(row => Object.keys(filters).map(k => {
             const filter = filters[k] || ''
             const regexp = new RegExp(filter, 'i')
-            return row[k].match(regexp) !== null
+            return typeof row[k] === 'string'
+              && row[k].match(regexp) !== null
           }).reduce((previous, current) => (
             previous ? current : false
           ), true)
